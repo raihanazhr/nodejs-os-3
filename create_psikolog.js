@@ -8,9 +8,9 @@ const newPsikolog = {
   alamat: "Jalan F",
   spesialisasi: "Specialist F",
   gender: "Perempuan",
-  nomor_ponsel: "085555555555",
+  nomor_ponsel: "086666666666",
   email: "angel@gmail.com",
-  gambar_psikolog: "/public/img/angel.png",
+  gambar_psikolog: "/img/angel.png",
 };
 
 async function tambahPsikolog() {

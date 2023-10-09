@@ -13,7 +13,7 @@ const Psikolog = sequelize.define("tb_psikolog", {
   gender: Sequelize.ENUM("Laki-laki", "Perempuan"),
   nomor_ponsel: Sequelize.STRING,
   email: Sequelize.STRING,
-  gambar_psikolog: Sequelize.BLOB,
+  gambar_psikolog: Sequelize.BLOB("long"),
 });
 
 module.exports = Psikolog;
