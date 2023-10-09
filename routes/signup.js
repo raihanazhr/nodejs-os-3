@@ -4,7 +4,6 @@ const multer = require("multer");
 const fs = require("fs").promises;
 const path = require("path");
 const Pasien = require("../models/pasien");
-const bcrypt = require("bcrypt");
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -24,8 +23,6 @@ router.post("/signup", upload.single("foto_pasien"), async (req, res) => {
       password,
     } = req.body;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const foto_pasien = req.file
       ? req.file.buffer
       : await getDefaultProfileImage();
@@ -43,7 +40,7 @@ router.post("/signup", upload.single("foto_pasien"), async (req, res) => {
       nomor_ponsel,
       email_pasien,
       alamat,
-      password: hashedPassword,
+      password,
       foto_pasien: `${fotoFileName}`,
     });
 
