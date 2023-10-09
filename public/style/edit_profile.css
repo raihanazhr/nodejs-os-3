@@ -42,6 +42,7 @@ html {
   display: flex;
   margin: auto;
   justify-content: center;
+  margin-top: 20vh;
 }
 
 .card1 {
@@ -144,8 +145,9 @@ a.kembali {
   font-weight: 400;
   box-shadow: 1px 1px 5px #777;
   cursor: pointer;
-  margin-right: 65vw;
-  margin-bottom: 100px;
+  left: -5vw;
+  top: -5vh;
+  position: absolute;
 }
 /* -------------------------- */
 
