@@ -48,6 +48,13 @@ router.post("/edit_profile", upload.single("foto_pasien"), async (req, res) => {
     await profil.save();
 
     const successMessage = "Profil berhasil diperbarui";
+
+    // Jika ada foto_pasien yang diunggah, Anda bisa membuat URL-nya dengan path relatif
+    let fotoUrl = null;
+    if (foto_pasien) {
+      fotoUrl = `/uploads/${foto_pasien}`;
+    }
+
     res.send(`
       <script>
         alert('${successMessage}');

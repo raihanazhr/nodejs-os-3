@@ -17,5 +17,5 @@ async function hapusPsikologById(idPsikolog) {
 }
 
 // Ganti 6 dengan id_psikolog yang ingin Anda hapus
-const idPsikologYangAkanDihapus = 6;
+const idPsikologYangAkanDihapus = 7;
 hapusPsikologById(idPsikologYangAkanDihapus);

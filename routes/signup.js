@@ -2,11 +2,14 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs").promises;
+const path = require("path");
 const Pasien = require("../models/pasien");
-const bcrypt = require("bcrypt");
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
+// Serve static files from the "public" directory
+router.use(express.static("public"));
 
 router.post("/signup", upload.single("foto_pasien"), async (req, res) => {
   try {
@@ -20,11 +23,15 @@ router.post("/signup", upload.single("foto_pasien"), async (req, res) => {
       password,
     } = req.body;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     const foto_pasien = req.file
-      ? req.file.buffer.toString("base64")
+      ? req.file.buffer
       : await getDefaultProfileImage();
+
+    // Ganti path sesuai dengan folder dan nama file default yang Anda inginkan
+    const fotoFileName = "poto-profil.png";
+    const fotoPath = path.join(__dirname, "../public/uploads/", fotoFileName);
+
+    await fs.writeFile(fotoPath, foto_pasien);
 
     const newPasien = await Pasien.create({
       nama_pasien,
@@ -33,15 +40,15 @@ router.post("/signup", upload.single("foto_pasien"), async (req, res) => {
       nomor_ponsel,
       email_pasien,
       alamat,
-      password: hashedPassword,
-      foto_pasien,
+      password,
+      foto_pasien: `${fotoFileName}`,
     });
 
     const successMessage = "Pendaftaran berhasil";
     res.send(`
       <script>
         alert('${successMessage}');
-        window.location='/login'; // Ubah '/login' sesuai dengan URL login Anda
+        window.location='/login'; // Change '/login' to your login URL
       </script>
     `);
   } catch (error) {
@@ -52,8 +59,13 @@ router.post("/signup", upload.single("foto_pasien"), async (req, res) => {
 
 async function getDefaultProfileImage() {
   try {
-    const defaultImageBuffer = await fs.readFile("public/img/poto-profil.png");
-    return defaultImageBuffer.toString("base64");
+    // Ganti path sesuai dengan folder dan nama file default yang Anda inginkan
+    const defaultImagePath = path.join(
+      __dirname,
+      "../public/uploads/poto-profil.png"
+    );
+    const defaultImageBuffer = await fs.readFile(defaultImagePath);
+    return defaultImageBuffer;
   } catch (error) {
     console.error("Error reading default profile image:", error);
     throw error;

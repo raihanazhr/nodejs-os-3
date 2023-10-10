@@ -234,6 +234,10 @@ app.get("/pembayaran", checkLoggedIn, async (req, res) => {
 
     const appointment = await Appointment.findOne({
       where: { email_pasien: userEmail },
+      order: [
+        ["tanggal", "DESC"],
+        ["waktu", "DESC"],
+      ],
     });
 
     if (!appointment) {
@@ -316,6 +320,8 @@ app.get("/profile", checkLoggedIn, async (req, res) => {
           jumlah_bayar: pembayaran ? pembayaran.jumlah_bayar : "-",
           status_bayar: pembayaran ? pembayaran.status_bayar : "-",
           nama_pendek: nama_pendek,
+          tanggal_appointment: "-",
+          waktu_appointment: "-",
         };
 
         const profileHtml = fs.readFileSync(
@@ -325,6 +331,10 @@ app.get("/profile", checkLoggedIn, async (req, res) => {
 
         const appointment = await Appointment.findOne({
           where: { email_pasien },
+          order: [
+            ["tanggal", "DESC"],
+            ["waktu", "DESC"],
+          ],
         });
 
         if (appointment) {
