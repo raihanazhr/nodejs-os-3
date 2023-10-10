@@ -69,9 +69,9 @@ html {
 }
 
 .container-team {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .team-card {
@@ -84,6 +84,7 @@ html {
   align-items: center;
   max-width: 400px;
   background-color: #fff;
+  width: 350px;
 }
 
 .team-card img {
