@@ -233,7 +233,7 @@ app.get("/pembayaran", checkLoggedIn, async (req, res) => {
     const nama_pendek = namaPasienArray.slice(0, 2).join(" ");
 
     const appointment = await Appointment.findOne({
-      where: { email_pasien },
+      where: { email_pasien: userEmail },
       order: [
         ["tanggal", "DESC"],
         ["waktu", "DESC"],
