@@ -20,7 +20,7 @@
   </head>
   <body>
     <!--  -->
-    <header class="header">
+    <!-- <header class="header">
       <a href="/index" class="logo">
         <img class="logo" src="/img/logo.png" alt=""
       </a>
@@ -63,7 +63,9 @@
         </div>
       </div>
       <div id="menu-btn" class="fas fa-bars"></div>
-    </header>
+    </header> -->
+    <!-- Tampilan header saat sudah login -->
+    <div id="navbar-container"></div>
     <!--  -->
     <div class="book_container">
       <p><a href="/index2">Kembali</a></p>
@@ -141,5 +143,35 @@
     </div>
 
     <script src="/script/script.js"></script>
+
+    <script>
+      // Fungsi untuk memeriksa apakah pengguna sudah login atau belum
+      function checkLoginStatus() {
+        fetch("/check-login-status") // Ganti dengan endpoint yang sesuai untuk memeriksa status login
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.isLoggedIn) {
+              // Pengguna sudah login, load navbar sesudah login
+              fetch("/navbar-after-login")
+                .then((response) => response.text())
+                .then((navbarHTML) => {
+                  document.getElementById("navbar-container").innerHTML =
+                    navbarHTML;
+                });
+            } else {
+              // Pengguna belum login, load navbar sebelum login
+              fetch("/navbar-before-login")
+                .then((response) => response.text())
+                .then((navbarHTML) => {
+                  document.getElementById("navbar-container").innerHTML =
+                    navbarHTML;
+                });
+            }
+          });
+      }
+
+      // Panggil fungsi checkLoginStatus saat halaman dimuat
+      window.onload = checkLoginStatus();
+    </script>
   </body>
 </html>

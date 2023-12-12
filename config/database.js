@@ -9,7 +9,6 @@ const sequelize = new Sequelize(
     ssl: fs.readFileSync(path.join(__dirname, "ca.pem")),
     dialect: "mysql",
     logging: false,
-    // Anda dapat menambahkan pengaturan lain yang diperlukan di sini
   }
 );
 
