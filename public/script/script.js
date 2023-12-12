@@ -1,5 +1,4 @@
 // navbar responsive
-
 function toggleMenu() {
   let menu = document.querySelector("#menu-btn");
   let navbar = document.querySelector(".header .navbar");

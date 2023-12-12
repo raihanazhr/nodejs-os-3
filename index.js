@@ -124,7 +124,6 @@ app.get("/index2", checkLoggedIn, (req, res) => {
 });
 
 // Route Login
-
 app.use("/", loginRouter);
 app.get("/login", (req, res) => {
   const loginHtml = fs.readFileSync(
